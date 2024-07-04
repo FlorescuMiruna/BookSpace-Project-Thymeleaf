@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Quotes</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.2.0/css/all.min.css"/>
+    <script src="/webjars/font-awesome/6.2.0/js/all.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+<body>
+
+
+<div class="container my-2" align="center">
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only" >(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only" >(current)</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <h3>Quotes List</h3>
+    
+
+    <div th:each="quote:${quotesList}">
+        <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header" th:text="${quote.book.title}"></div>
+            <div class="card-body">
+
+                <p class="card-text" th:text="${quote.text}" ></p>
+                <div>
+
+                    <td><a href="#" th:href="@{/quotes/update-quote-form/{id}(id=${quote.id})}"><i class="bi bi-pencil-square" style="color: white"></i></a></td>
+                    <td><a href="#" th:href="@{/quotes/deleteQuote/{id}(id=${quote.id})}"><i class="bi bi-trash" style="color: white"></i></a></td>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a th:href="@{/quotes/add-quote-form}" class="btn btn-info btn-sm mb-3" >Add Quote</a>
+</div>
+</body>
+</html>
