@@ -9,6 +9,7 @@ import com.example.bookspace.service.AuthorService;
 import com.example.bookspace.service.BookService;
 import com.example.bookspace.service.ReviewService;
 import jakarta.validation.Valid;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,6 +60,7 @@ public class BookController {
         List<Author> authorsAll = authorService.getAllAuthors();
         model.addAttribute("authorsAll", authorsAll );
 
+
         return "add-book-form";
     }
 
@@ -75,21 +77,13 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult) {
-        System.out.println("saveBook");
-        System.out.println("book.getAuthor()" + book.getAuthor());
-        System.out.println("book:" + book.toString());
-
-        Author author = authorService.getAuthorById(book.getAuthor().getId());
-        book.setAuthor(author);
         bookService.saveBook(book);
 
+        if(bindingResult.hasErrors()){
+            return "redirect:/add-book-form";
+        }
 
-
-//        if(bindingResult.hasErrors()){
-//            return "redirect:/add-book-form";
-//        }
-//
-        return "redirect:/add-book-form";
+        return "redirect:/books";
     }
 
     @PostMapping("/page/saveReview")

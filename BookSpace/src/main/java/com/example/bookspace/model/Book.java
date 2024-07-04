@@ -16,14 +16,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String genre;
     private Integer year;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Details details;
+//    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Details details;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
@@ -39,7 +39,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", year=" + year +
-                ", details=" + details +
+//                ", details=" + details +
                 ", author=" + author +
                 ", quotes=" + quotes +
                 '}';

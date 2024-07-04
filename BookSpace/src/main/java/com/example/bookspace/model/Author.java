@@ -18,6 +18,13 @@ public class Author {
     private String firstName;
     private String lastName;
 
+//    @OneToOne(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private AuthorDetails authorDetails;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "details_id", referencedColumnName = "id")
+//    private AuthorDetails authorDetails;
+
 //    @Pattern(regexp = "[A-Z]*", message = "only letters")
     private Integer age;
 

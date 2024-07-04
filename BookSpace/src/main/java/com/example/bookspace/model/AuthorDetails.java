@@ -1,7 +1,6 @@
 package com.example.bookspace.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Details {
+public class AuthorDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +20,14 @@ public class Details {
     private String description;
 
 //    @OneToOne
-//    Book book;
+//    Author author;
 
+
+    @Override
+    public String toString() {
+        return "AuthorDetails{" +
+                "id=" + id +
+//                ", description='" + description + '\'' +
+                '}';
+    }
 }

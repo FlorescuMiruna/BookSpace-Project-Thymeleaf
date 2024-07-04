@@ -2,6 +2,7 @@ package com.example.bookspace.controller;
 
 import com.example.bookspace.exception.ResourceNotFoundException;
 import com.example.bookspace.model.Author;
+import com.example.bookspace.model.AuthorDetails;
 import com.example.bookspace.service.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class AuthorController {
     @GetMapping("/add-author-form")
     public String addAuthorForm(Model model) {
         Author author = new Author();
+//        AuthorDetails authorDetails = new AuthorDetails("test");
+//        author.setAuthorDetails(authorDetails);
         model.addAttribute("author", author);
         return "add-author-form";
     }
@@ -43,10 +46,19 @@ public class AuthorController {
         return "update-author-form";
     }
 
-    @PostMapping("/save")
-    public String saveAuthor(@Valid @ModelAttribute("author") Author author, BindingResult bindingResult) {
+    @GetMapping("/page/{id}")
+    public String getAuthorInfo(@PathVariable(value = "id") long id, Model model) {
+        Author author = authorService.getAuthorById(id);
+        model.addAttribute("author", author);
+        return "author-info.html";
+    }
 
+    @PostMapping("/save")
+    public String saveAuthor(@Valid @ModelAttribute("author") Author author, @ModelAttribute AuthorDetails authorDetails,BindingResult bindingResult) {
+//        author.setAuthorDetails(authorDetails);
+        System.out.println("IMPORTANT:" +  authorDetails);
         authorService.saveAuthor(author);
+
         if(bindingResult.hasErrors()){
             System.out.println("testt  if(bindingResult.hasErrors()){)");
             return "redirect:/add-author-form";
