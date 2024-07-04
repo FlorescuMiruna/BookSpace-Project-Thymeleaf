@@ -19,15 +19,15 @@ public class AuthorDetails {
     @Lob
     private String description;
 
-//    @OneToOne
-//    Author author;
+    @OneToOne
+    Author author;
 
 
     @Override
     public String toString() {
         return "AuthorDetails{" +
                 "id=" + id +
-//                ", description='" + description + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
