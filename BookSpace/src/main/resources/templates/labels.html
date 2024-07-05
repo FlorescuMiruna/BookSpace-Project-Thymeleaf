@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Labels</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/webjars/font-awesome/6.2.0/css/all.min.css"/>
+  <script src="/webjars/font-awesome/6.2.0/js/all.min.js"></script>
+</head>
+<body>
+<div class="container my-2">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <h3>Book Labels List</h3>
+
+  <table style="width:80%" border="1" class="table table-striped table-responsive-md">
+    <thead>
+    <tr>
+      <!-- Po?i ad?uga aici capetele de tabel dac? sunt necesare -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="label:${labelList}">
+      <td th:text="${label.text}"></td>
+      <td>
+        <a th:href="@{/labels/update-label-form/{id}(id=${label.id})}" class="btn btn-primary">Update</a>
+        <a th:href="@{/labels/deleteLabel/{id}(id=${label.id})}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-4 mb-3" th:each="label:${labelList}">
+        <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 18rem;">
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+          <h5 class="card-title" th:text="${label.text}">Primary card title</h5>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a th:href="@{/labels/add-label-form}" class="btn btn-info btn-sm mb-3">Add Label</a>
+</div>
+</body>
+</html>

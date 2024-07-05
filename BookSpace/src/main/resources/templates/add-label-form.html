@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Labels form</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2" align="center">
+    <h1>Labels</h1>
+    <hr>
+    <h2>Save Label</h2>
+
+    <form action="#" th:action="@{/labels/save}" th:object="${label}"
+          method="POST">
+        <input type="text" th:field="*{text}" placeholder="Title" class="form-control mb-4 col-4">
+
+
+        <select th:field="*{colour}" class="form-control mb-4 col-4">
+            <option value="">Select the colour</option>
+            <option value="bg-primary">Blue</option>
+            <option value="bg-secondary">Grey</option>
+            <option value="bg-success">Green</option>
+            <option value="bg-danger">Red</option>
+            <option value="bg-warning">Yellow</option>
+            <option value="bg-info">Light blue</option>
+            <option value="bg-dark">Black</option>
+        </select>
+
+
+        <button type="submit" class="btn btn-info col-2">Save
+            Label</button>
+    </form>
+
+
+
+    <hr>
+
+    <a th:href="@{/labels}"> Back to Labels List</a>
+</div>
+</body>
+</html>

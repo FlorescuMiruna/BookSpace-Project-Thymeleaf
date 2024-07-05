@@ -1,13 +1,15 @@
 package com.example.bookspace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.management.Descriptor;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,6 +26,14 @@ public class Book {
 
 //    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Details details;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "book_label",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id"))
+    private Set<Label> labels = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "author_id")
