@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/labels")
@@ -38,15 +35,13 @@ public class LabelController {
         model.addAttribute("label", label);
         return "add-label-form";
     }
-//    @GetMapping("/add-author-form")
-//    public String addAuthorForm(Model model) {
-//        Author author = new Author();
-////        AuthorDetails authorDetails = new AuthorDetails("test");
-////        author.setAuthorDetails(authorDetails);
-//        model.addAttribute("author", author);
-//        return "add-author-form";
-//    }
 
+    @GetMapping("/update-label-form/{id}")
+    public String updateLabelForm(@PathVariable(value = "id") long id, Model model) {
+        Label label = labelService.getLabelById(id);
+        model.addAttribute("label", label);
+        return "update-label-form";
+    }
     @PostMapping("/save")
     public String saveLabel(@Valid @ModelAttribute("label") Label label, BindingResult bindingResult) {
         labelService.saveLabel(label);
@@ -56,5 +51,13 @@ public class LabelController {
         }
 
         return "redirect:/labels";
+    }
+
+    @GetMapping("/deleteLabel/{id}")
+    public String deleteLabel(@PathVariable(value = "id") long id) {
+//        System.out.println("deleteAuthor");
+        labelService.deleteLabel(id);
+        return "redirect:/labels";
+
     }
 }
