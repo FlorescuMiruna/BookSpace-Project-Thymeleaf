@@ -39,18 +39,18 @@ public class BookController {
         return "books";
     }
 
-    @GetMapping("/page/{id}")
-    public String viewBookPage(@PathVariable(value = "id") long id, Model model) {
-        Book book = bookService.getBookById(id);
-
-        model.addAttribute("book", book);
-        List<Author> authorsAll = authorService.getAllAuthors();
-        model.addAttribute("authorsAll", authorsAll );
-
-        List<Review> reviewsAll = reviewService.getAllReviewsByBookId(id);
-        model.addAttribute("reviewsAll", reviewsAll);
-        return "book-page";
-    }
+//    @GetMapping("/page/{id}")
+//    public String viewBookPage(@PathVariable(value = "id") long id, Model model) {
+//        Book book = bookService.getBookById(id);
+//
+//        model.addAttribute("book", book);
+//        List<Author> authorsAll = authorService.getAllAuthors();
+//        model.addAttribute("authorsAll", authorsAll );
+//
+//        List<Review> reviewsAll = reviewService.getAllReviewsByBookId(id);
+//        model.addAttribute("reviewsAll", reviewsAll);
+//        return "book-page";
+//    }
 
     @GetMapping("/add-book-form")
     public String addBookForm(Model model) {
@@ -102,5 +102,26 @@ public class BookController {
         return "redirect:/books";
 
     }
+
+    @GetMapping("/page/{id}")
+    public String getBookPage(@PathVariable(value = "id") long id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "book-info.html";
+    }
+
+    @PutMapping("/page/{id}")
+    public String addLabelOnBook(@PathVariable(value = "id") long id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "book-info.html";
+    }
+
+//    @PostMapping("/watch-list/user/{userId}")
+//    public Movie addMovieToWatchList(@RequestBody Movie movie,@PathVariable Long userId){
+//
+//        movieService.addMovieToWatchList(movie,userId);
+//        return movie;
+//    }
 
 }
