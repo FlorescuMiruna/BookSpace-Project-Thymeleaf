@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Authors Management System</title>
-
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+        .author-description {
+            border: 1px solid #ccc; /* Border de 1px gri */
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa; /* Fundal gri deschis */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Umbră subtilă */
+            color: firebrick;
+            font-size: larger;
+        }
+    </style>
 </head>
 <body>
 <div class="container my-2" align="center">
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only" >(current)</span></a>
+                    <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only" >(current)</span></a>
+                    <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{'/labels'}">Labels <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-
         </div>
     </nav>
-
-<!--    <form action="#" th:action="@{/authors/save}" th:object="${author}"-->
-<!--          method="POST">-->
-
-<!--        &lt;!&ndash; Add hidden form field to handle update &ndash;&gt;-->
-<!--        <input type="hidden" th:field="*{id}" />-->
-
-<!--        <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4">-->
-
-<!--        <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4">-->
-
-<!--        &lt;!&ndash;    <label th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error</label>&ndash;&gt;-->
-<!--        <input type="text" th:field="*{age}" class="form-control mb-4 col-4">-->
-
-<!--        <button type="submit" class="btn btn-info col-2"> Update Author info</button>-->
-
-
-<!--    </form>-->
-
-
+    <h5 class="card"   style="margin: 20px; padding: 5px; font-family: Georgia;  font-weight: bold; text-transform: uppercase;">
+        Author Page
+    </h5>
 
     <hr>
 
-
-
     <div class="card text-white bg-info mb-3" style="max-width: 100rem;">
-        <div class="card-header" th:text="'First Name: ' + ${author.firstName}">Header</div>
-        <div class="card-header" th:text="'Last Name: ' + ${author.lastName}">Header</div>
-        <div class="card-header" th:text="'Age: ' + ${author.age}">Header</div>
+        <div class="card-header"><strong>First name:</strong> <span th:text="${author.firstName}"></span></div>
+        <div class="card-header"><strong>Last name:</strong> <span th:text="${author.lastName}"></span></div>
+        <div class="card-header"><strong>Birth Year:</strong> <span th:text="${author.age}"></span></div>
 
         <div class="card-body">
-            <h5 class="card-title">Author Description: </h5>
-            <p> <span th:text="${author.authorDetails.description}"></span></p>
+            <h5 class="card-title">Author Description:</h5>
+            <p class="author-description" th:text="${author.authorDetails.description}"></p>
         </div>
     </div>
 
-    <a th:href = "@{/authors}"> Back to Authors List</a>
+<!--    <div class="card text-white bg-info mb-3"  style="max-width: 100rem;">-->
+<!--        <div class="card-header"><strong>Title:</strong> <h2 th:text="${book.title}"></h2></div>-->
+<!--        <div class="card-header"><strong>Genre:</strong> <span th:text="${book.genre}"></span></div>-->
+<!--        <div class="card-header"><strong>Title:</strong>  <span th:text="${book.author.firstName + ' ' + book.author.lastName}"></span></div>-->
+<!--        <div class="card-header"><strong>Apparition year:</strong> <span th:text="${book.year}"></span></div>-->
+<!--    </div>-->
+
 </div>
 </body>
 </html>
