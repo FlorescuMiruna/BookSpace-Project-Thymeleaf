@@ -7,41 +7,39 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <style>
+        .full-height {
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
-<div class="container my-2" align="center">
-    <h1>Books</h1>
-    <hr>
-    <h2>Save Book</h2>
-
-    <form action="#" th:action="@{/books/save}" th:object="${book}"
-          method="POST">
-        <input type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4 col-4">
-        <input type="text" th:field="*{genre}" placeholder="Genre" class="form-control mb-4 col-4">
-
-        <!--    <label th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error</label>-->
-        <input type="number" th:field="*{year}" placeholder="Apparition year" class="form-control mb-4 col-4">
-
-<!--        <div  >-->
-<!--            <textarea class="form-control mb-4 col-4" th:field="*{details.description}" placeholder="Description" />-->
-<!--        </div>-->
-<!--        <input th:field="*{details.id}" type="hidden"/>-->
-
-        <select th:field="*{author}" class="form-control mb-4 col-4" >
-            <option value="">Select the author</option>
-            <option th:each="author : ${authorsAll}" th:value="${author.id}"  th:text="${author.firstName + ' ' + author.lastName}"></option>
-        </select>
-
-
-        <button type="submit" class="btn btn-info col-2">Save
-            Book</button>
-    </form>
-
-
-
-    <hr>
-
-    <a th:href="@{/books}"> Back to Books List</a>
+<div class="container full-height d-flex align-items-center justify-content-center">
+    <div class="card p-4" style="max-width: 600px; width: 100%;">
+        <hr>
+        <h2 class="text-center">Save Book</h2>
+        <form action="#" th:action="@{/books/save}" th:object="${book}" method="POST">
+            <div class="form-group">
+                <input type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4">
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{genre}" placeholder="Genre" class="form-control mb-4">
+            </div>
+            <div class="form-group">
+                <input type="number" th:field="*{year}" placeholder="Apparition year" class="form-control mb-4">
+            </div>
+            <div class="form-group">
+                <select th:field="*{author}" class="form-control mb-4">
+                    <option value="">Select the author</option>
+                    <option th:each="author : ${authorsAll}" th:value="${author.id}" th:text="${author.firstName + ' ' + author.lastName}"></option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-info">Save Book</button>
+            </div>
+        </form>
+        <hr>
+    </div>
 </div>
 </body>
 </html>

@@ -7,29 +7,39 @@
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+  <style>
+    .full-height {
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-<div class="container my-2" align="center">
-  <hr>
-  <h2>Add a new Author</h2>
+<div class="container full-height d-flex align-items-center justify-content-center">
+  <div class="card p-4" style="max-width: 600px; width: 100%;">
+    <hr>
+    <h2 class="text-center">Add a new Author</h2>
 
-  <form action="#" th:action="@{/authors/save}" th:object="${author}"
-        method="POST">
-    <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control mb-4 col-4">
-    <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control mb-4 col-4">
+    <form action="#" th:action="@{/authors/save}" th:object="${author}" method="POST">
+      <div class="form-group">
+        <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control mb-4">
+      </div>
+      <div class="form-group">
+        <input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control mb-4">
+      </div>
+      <div class="form-group">
+        <input type="number" th:field="*{age}" placeholder="Age" class="form-control mb-4">
+      </div>
+      <div class="form-group">
+        <input type="text" th:field="*{authorDetails.description}" placeholder="Description" class="form-control mb-4">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-info">Save Author</button>
+      </div>
+    </form>
 
-<!--    <label th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error</label>-->
-    <input type="number" th:field="*{age}" placeholder="Age" class="form-control mb-4 col-4">
-    <input type="text" th:field="*{authorDetails.description}" placeholder="Description" class="form-control mb-4 col-4">
+    <hr>
 
-
-    <button type="submit" class="btn btn-info col-2">Save
-      Author</button>
-  </form>
-
-  <hr>
-
-  <a th:href="@{/authors}"> Back to Authors List</a>
+  </div>
 </div>
 </body>
 </html>

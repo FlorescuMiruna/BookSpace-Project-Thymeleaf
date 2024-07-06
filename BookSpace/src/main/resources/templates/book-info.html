@@ -34,16 +34,38 @@
     <div class="card-header" th:text="'Title: ' + ${book.title}">Header</div>
     <div class="card-header" th:text="'Genre: ' + ${book.genre}">Header</div>
     <div class="card-header" th:text="'Author: ' + ${book.author.firstName} + ${book.author.lastName}">Header</div>
-
-
-<!--    <div class="card-body">-->
-<!--      <h5 class="card-title">Author Description: </h5>-->
-<!--      <p> <span th:text="${author.authorDetails.description}"></span></p>-->
-<!--    </div>-->
   </div>
-  <button>Add an label to the book</button>
 
-<!--  <a th:href = "@{/authors}"> Back to Authors List</a>-->
+
+
+
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-3" th:each="label:${book.labels}">
+      <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 18rem;">
+        <div class="card-header"></div>
+        <div class="card-body">
+          <h5 class="card-title" th:text="${label.text}">Primary card title</h5>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h4>Choose a label:</h4>
+
+    <form th:action="@{/books/page/saveLabel}" th:object="${labelBookDTO}" method="post">
+      <input type="hidden" th:field="*{bookId}" th:value="${book.id}" />
+      <div class="form-group">
+
+        <select class="form-control" th:field="*{labelId}">
+          <option th:each="label : ${labels}" th:value="${label.id}" th:text="${label.text}">Select a label</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+
 </div>
 </body>
 </html>

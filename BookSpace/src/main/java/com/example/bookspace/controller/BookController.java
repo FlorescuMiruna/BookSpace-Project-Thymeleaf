@@ -1,12 +1,11 @@
 package com.example.bookspace.controller;
 
 
-import com.example.bookspace.model.Author;
-import com.example.bookspace.model.Book;
+import com.example.bookspace.model.*;
 
-import com.example.bookspace.model.Review;
 import com.example.bookspace.service.AuthorService;
 import com.example.bookspace.service.BookService;
+import com.example.bookspace.service.LabelService;
 import com.example.bookspace.service.ReviewService;
 import jakarta.validation.Valid;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
@@ -25,12 +24,14 @@ public class BookController {
     private final BookService bookService;
     private final AuthorService authorService;
     private final ReviewService reviewService;
+    private final LabelService labelService;
 
     @Autowired
-    public BookController(BookService bookService, AuthorService authorService, ReviewService reviewService) {
+    public BookController(BookService bookService, AuthorService authorService, ReviewService reviewService, LabelService labelService) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.reviewService = reviewService;
+        this.labelService = labelService;
     }
 
     @GetMapping("")
@@ -103,17 +104,34 @@ public class BookController {
 
     }
 
+//    @GetMapping("/page/{id}")
+//    public String getBookPage(@PathVariable(value = "id") long id, Model model) {
+//        Book book = bookService.getBookById(id);
+//        List<Label> allLabels = labelService.getAllLabels();
+//        model.addAttribute("book", book);
+//        model.addAttribute("labels", allLabels);
+//        return "book-info.html";
+//    }
+
     @GetMapping("/page/{id}")
     public String getBookPage(@PathVariable(value = "id") long id, Model model) {
         Book book = bookService.getBookById(id);
+        List<Label> allLabels = labelService.getAllLabels();
+
         model.addAttribute("book", book);
+        model.addAttribute("labels", allLabels);
+
+        LabelBookDTO labelBookDTO = new LabelBookDTO();
+        labelBookDTO.setBookId(book.getId());
+        model.addAttribute("labelBookDTO", labelBookDTO);
+
         return "book-info.html";
     }
-
     @PutMapping("/page/{id}")
     public String addLabelOnBook(@PathVariable(value = "id") long id, Model model) {
         Book book = bookService.getBookById(id);
         model.addAttribute("book", book);
+
         return "book-info.html";
     }
 
@@ -123,5 +141,42 @@ public class BookController {
 //        movieService.addMovieToWatchList(movie,userId);
 //        return movie;
 //    }
+
+//    @PostMapping("/page/saveLabel")
+//    public String saveLabel(@RequestParam("labelId") Long labelId, @RequestParam("bookId") Long bookId) {
+//
+//        Book book = bookService.getBookById(bookId);
+//        Label label = labelService.getLabelById(labelId);
+//
+//        System.out.println("Label ID: " + labelId + "Label: " + label);
+//        System.out.println("Book ID: " + bookId + "Book: " + book);
+//
+//        if (book != null && label != null) {
+//            book.getLabels().add(label);
+//            bookService.saveBook(book);
+//        }
+//
+//        return "redirect:/books/page/" + bookId;
+//    }
+
+    @PostMapping("/page/saveLabel")
+    public String saveLabel(@Valid @ModelAttribute("labelBookDTO") LabelBookDTO labelBookDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/books/page/" + labelBookDTO.getBookId();
+        }
+
+        Long labelId = labelBookDTO.getLabelId();
+        Long bookId = labelBookDTO.getBookId();
+
+        Book book = bookService.getBookById(bookId);
+        Label label = labelService.getLabelById(labelId);
+
+        if (book != null && label != null) {
+            book.getLabels().add(label);
+            bookService.saveBook(book);
+        }
+
+        return "redirect:/books/page/" + bookId;
+    }
 
 }

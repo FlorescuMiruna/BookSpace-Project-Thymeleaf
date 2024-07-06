@@ -24,5 +24,13 @@ public class Label {
     @ManyToMany(mappedBy = "labels")
     private Set<Book> books = new HashSet<>();
 
-
+    @Override
+    public String toString() {
+        return "Label{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", colour='" + colour + '\'' +
+                ", books=" + books +
+                '}';
+    }
 }
