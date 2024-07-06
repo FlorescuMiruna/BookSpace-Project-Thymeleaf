@@ -35,7 +35,7 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
-      <th>Age</th>
+      <th>Birth year</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -43,7 +43,7 @@
     <tr th:each="author:${authorslist}">
       <td th:text="${author.firstName}"></td>
       <td th:text="${author.lastName}"></td>
-      <td th:text="${author.age}"></td>
+      <td th:text="${author.birthYear}"></td>
       <td> <a th:href="@{/authors/update-author-form/{id}(id=${author.id})}"
               class="btn btn-primary">Update</a>
         <a th:href="@{/authors/deleteAuthor/{id}(id=${author.id})}"

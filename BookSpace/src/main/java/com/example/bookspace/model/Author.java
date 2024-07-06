@@ -2,8 +2,7 @@ package com.example.bookspace.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 @Entity
@@ -26,7 +25,7 @@ public class Author {
     private AuthorDetails authorDetails;
 
 //    @Pattern(regexp = "[A-Z]*", message = "only letters")
-    private Integer age;
+    private Integer birthYear;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Book> books;
@@ -37,7 +36,7 @@ public class Author {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
+                ", age=" + birthYear +
 //                ", books=" + books +
                 '}';
     }
