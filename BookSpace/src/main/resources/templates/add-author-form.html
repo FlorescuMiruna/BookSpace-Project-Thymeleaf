@@ -32,8 +32,11 @@
       <div class="form-group">
         <input type="text" th:field="*{authorDetails.description}" placeholder="Description" class="form-control mb-4">
       </div>
-      <div class="text-center">
+      <div class="text-center mb-4"> <!-- Added `mb-4` for margin bottom -->
         <button type="submit" class="btn btn-info">Save Author</button>
+      </div>
+      <div class="text-center">
+        <a th:href="@{/authors}" class="btn btn-link"> Back to Authors List</a> <!-- Centered link -->
       </div>
     </form>
 

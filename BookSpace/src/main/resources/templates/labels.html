@@ -14,21 +14,24 @@
 </head>
 <body>
 <div class="container my-2 text-center">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only">(current)</span></a>
+          <a class="nav-link" th:href="@{'/authors'}">Authors <span class="sr-only" >(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only">(current)</span></a>
+          <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only" >(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{'/labels'}">Labels <span class="sr-only" >(current)</span></a>
         </li>
       </ul>
     </div>
   </nav>
 
   <h5 class="card"  style="margin: 20px; padding: 5px; font-family: Georgia;  font-weight: bold; text-transform: uppercase;">
-    Book List
+    Labels for Books
   </h5>
 
   <div class="row justify-content-center">

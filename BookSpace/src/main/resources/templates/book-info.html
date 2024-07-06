@@ -9,9 +9,7 @@
 </head>
 <body>
 <div class="container my-2" align="center">
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -20,37 +18,68 @@
         <li class="nav-item active">
           <a class="nav-link" th:href="@{'/books'}">Books <span class="sr-only" >(current)</span></a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{'/labels'}">Labels <span class="sr-only" >(current)</span></a>
+        </li>
       </ul>
-
     </div>
   </nav>
 
-
+  <h5 class="card"   style="margin: 20px; padding: 5px; font-family: Georgia;  font-weight: bold; text-transform: uppercase;">
+    Your Book
+  </h5>
   <hr>
 
 
 
-  <div class="card text-white bg-info mb-3" style="max-width: 100rem;">
-    <div class="card-header" th:text="'Title: ' + ${book.title}">Header</div>
-    <div class="card-header" th:text="'Genre: ' + ${book.genre}">Header</div>
-    <div class="card-header" th:text="'Author: ' + ${book.author.firstName} + ${book.author.lastName}">Header</div>
+<!--  <div class="card text-white bg-info mb-3" style="max-width: 100rem;">-->
+<!--    <div class="card-header" th:text="'Title: ' + ${book.title}">Header</div>-->
+<!--    <div class="card-header" th:text="'Genre: ' + ${book.genre}">Header</div>-->
+<!--    <div class="card-header" th:text="'Author: ' + ${book.author.firstName} + ' ' + ${book.author.lastName}">Header</div>-->
+<!--  </div>-->
+  <div class="card text-white bg-info mb-3"  style="max-width: 100rem;">
+    <div class="card-header"><strong>Title:</strong> <h2 th:text="${book.title}"></h2></div>
+    <div class="card-header"><strong>Genre:</strong> <span th:text="${book.genre}"></span></div>
+    <div class="card-header"><strong>Title:</strong>  <span th:text="${book.author.firstName + ' ' + book.author.lastName}"></span></div>
+    <div class="card-header"><strong>Apparition year:</strong> <span th:text="${book.year}"></span></div>
   </div>
 
 
 
 
+
+
+  <!--  <div class="row justify-content-center">-->
+<!--    <div class="col-md-4 mb-3" th:each="label:${book.labels}">-->
+<!--      <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 18rem;">-->
+<!--        <div class="card-header"></div>-->
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title" th:text="${label.text}">Primary card title</h5>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="row justify-content-center">-->
+<!--    <div class="col-md-4 mb-3" th:each="label:${book.labels}">-->
+<!--      <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 12rem;"> &lt;!&ndash; Adjusted max-width &ndash;&gt;-->
+<!--        <div class="card-header"></div>-->
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title" th:text="${label.text}">Primary card title</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="row justify-content-center">
     <div class="col-md-4 mb-3" th:each="label:${book.labels}">
-      <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 18rem;">
+      <div th:class="'card text-white ' + ${label.colour} + ' mb-3'" style="max-width: 24rem;"> <!-- Adjusted max-width -->
         <div class="card-header"></div>
         <div class="card-body">
           <h5 class="card-title" th:text="${label.text}">Primary card title</h5>
         </div>
-
       </div>
     </div>
   </div>
-
   <div class="container">
     <h4>Choose a label:</h4>
 
