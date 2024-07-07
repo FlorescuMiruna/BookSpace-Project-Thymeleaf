@@ -1,95 +1,3 @@
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="en" xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>Not found exception</title>&ndash;&gt;-->
-<!--&lt;!&ndash;    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>&ndash;&gt;-->
-<!--&lt;!&ndash;    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>&ndash;&gt;-->
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="container-fluid" style="margin-top: 20px">&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="col-md-6 col-md-offset-3">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="pannel-group">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="panel panel-primary">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="panel-heading">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <h1 class="panel-title" th:text="'not found exception 404'">Resource type</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="panel-body">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="col-md-6">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <label th:for="exception">Error ce</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <p th:text="${exception.getClass()}">Error</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="col-md-6">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <p th:text="${exception.getMessage()}">description</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Error 404</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            background-color: #f8f9fa;-->
-<!--            margin: 0;-->
-<!--            padding: 0;-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            height: 100vh;-->
-<!--        }-->
-
-<!--        .center {-->
-<!--            display: block;-->
-<!--            margin-left: auto;-->
-<!--            margin-right: auto;-->
-<!--            width: 50%;-->
-<!--        }-->
-
-<!--        .center-btn {-->
-<!--            display: block;-->
-<!--            margin-top: 20px;-->
-<!--            text-align: center;-->
-<!--            text-decoration: none;-->
-<!--            padding: 10px 20px;-->
-<!--            background-color: #007bff;-->
-<!--            color: white;-->
-<!--            border-radius: 5px;-->
-<!--            font-size: 16px;-->
-<!--        }-->
-
-<!--        .center-btn:hover {-->
-<!--            background-color: #0056b3;-->
-<!--            color: white;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<img src="/media/404.png" class="center">-->
-
-<!--<a href="/authors" class="center-btn">Go Home</a>-->
-
-<!--                            <div class="col-md-6">-->
-<!--                                <label th:for="exception">Error ce</label>-->
-<!--                                <p th:text="${exception.getClass()}">Error</p>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-6">-->
-<!--                                <p th:text="${exception.getMessage()}">description</p>-->
-<!--                            </div>-->
-<!--</body>-->
-<!--</html>-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -141,13 +49,7 @@
 <body>
 <img src="/media/404.png" class="center">
 
-
-
 <div class="error-details">
-<!--    <div>-->
-<!--        <label>Error type:</label>-->
-<!--        <p th:text="${exception.getClass()}">Error</p>-->
-<!--    </div>-->
     <div>
         <h2 th:text="${exception.getMessage()}">Description</h2>
         <a href="/authors" class="center-btn">Go Home</a>
