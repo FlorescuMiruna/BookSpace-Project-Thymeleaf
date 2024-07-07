@@ -13,9 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.logging.Logger;
+
 @Controller
 @RequestMapping("/authors")
 public class AuthorController {
+
+    private static final Logger log = Logger.getLogger(LabelController.class.getName());
 
     private AuthorService authorService;
 
@@ -25,8 +29,9 @@ public class AuthorController {
     }
 
     @GetMapping("")
-    public String viewHomePage(Model model) {
+    public String viewAllAuthorsPage(Model model) {
         model.addAttribute("authorslist", authorService.getAllAuthors());
+        log.info("Successfully loaded Authors page");
         return "authors";
     }
 
@@ -36,6 +41,9 @@ public class AuthorController {
 //        AuthorDetails authorDetails = new AuthorDetails("test");
 //        author.setAuthorDetails(authorDetails);
         model.addAttribute("author", author);
+
+        log.info("Successfully loaded the Add Author Form");
+
         return "add-author-form";
     }
 
@@ -43,6 +51,9 @@ public class AuthorController {
     public String updateAuthorForm(@PathVariable(value = "id") long id, Model model) {
         Author author = authorService.getAuthorById(id);
         model.addAttribute("author", author);
+
+        log.info("Successfully loaded the Update Author Form");
+
         return "update-author-form";
     }
 
@@ -58,9 +69,8 @@ public class AuthorController {
 //        author.setAuthorDetails(authorDetails);
         System.out.println("IMPORTANT:" +  authorDetails);
         authorService.saveAuthor(author);
-
+        log.info("Successfully saved author with ID: " + author.getId());
         if(bindingResult.hasErrors()){
-            System.out.println("testt  if(bindingResult.hasErrors()){)");
             return "redirect:/add-author-form";
         }
 
@@ -69,10 +79,9 @@ public class AuthorController {
 
     @GetMapping("/deleteAuthor/{id}")
     public String deleteAuthor(@PathVariable(value = "id") long id) {
-        System.out.println("deleteAuthor");
         authorService.deleteAuthor(id);
+        log.info("Author with ID: " + id + " deleted successfully.");
         return "redirect:/authors";
-
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

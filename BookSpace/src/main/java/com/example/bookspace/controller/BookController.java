@@ -16,15 +16,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/books")
 public class BookController {
 
+    private static final Logger log = Logger.getLogger(LabelController.class.getName());
+
     private final BookService bookService;
     private final AuthorService authorService;
     private final ReviewService reviewService;
     private final LabelService labelService;
+
 
     @Autowired
     public BookController(BookService bookService, AuthorService authorService, ReviewService reviewService, LabelService labelService) {
@@ -35,8 +39,9 @@ public class BookController {
     }
 
     @GetMapping("")
-    public String viewHomePage(Model model) {
+    public String viewAllBooksPage(Model model) {
         model.addAttribute("booksList", bookService.getAllBooks());
+        log.info("Successfully loaded Books page");
         return "books";
     }
 
@@ -61,6 +66,7 @@ public class BookController {
         List<Author> authorsAll = authorService.getAllAuthors();
         model.addAttribute("authorsAll", authorsAll );
 
+        log.info("Successfully loaded the Add Book Form");
 
         return "add-book-form";
     }
@@ -72,6 +78,8 @@ public class BookController {
         model.addAttribute("book", book);
         List<Author> authorsAll = authorService.getAllAuthors();
         model.addAttribute("authorsAll", authorsAll );
+
+        log.info("Successfully loaded the Update Book Form");
 
         return "update-book-form";
     }

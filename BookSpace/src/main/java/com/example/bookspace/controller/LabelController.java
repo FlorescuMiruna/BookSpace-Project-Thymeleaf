@@ -11,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @Controller
 @RequestMapping("/labels")
 public class LabelController {
+
+    private static final Logger log = Logger.getLogger(LabelController.class.getName());
 
     private LabelService labelService;
 
@@ -23,16 +27,19 @@ public class LabelController {
     }
 
     @GetMapping("")
-    public String viewLabels(Model model) {
+    public String viewAllLabelsPage(Model model) {
         model.addAttribute("labelList", labelService.getAllLabels());
+        log.info("Successfully loaded Labels page");
         return "labels";
     }
 
     @GetMapping("/add-label-form")
     public String addLabelForm(Model model) {
         Label label = new Label();
-
         model.addAttribute("label", label);
+
+        log.info("Successfully loaded the Add Label Form");
+
         return "add-label-form";
     }
 
@@ -40,6 +47,9 @@ public class LabelController {
     public String updateLabelForm(@PathVariable(value = "id") long id, Model model) {
         Label label = labelService.getLabelById(id);
         model.addAttribute("label", label);
+
+        log.info("Successfully loaded the Update Label Form");
+
         return "update-label-form";
     }
     @PostMapping("/save")
