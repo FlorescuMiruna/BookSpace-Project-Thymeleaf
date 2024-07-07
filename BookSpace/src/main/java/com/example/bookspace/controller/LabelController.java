@@ -56,6 +56,8 @@ public class LabelController {
     public String saveLabel(@Valid @ModelAttribute("label") Label label, BindingResult bindingResult) {
         labelService.saveLabel(label);
 
+        log.info("Successfully saved label with ID: " + label.getId());
+
         if(bindingResult.hasErrors()){
             return "redirect:/add-label-form";
         }
@@ -67,6 +69,9 @@ public class LabelController {
     public String deleteLabel(@PathVariable(value = "id") long id) {
 //        System.out.println("deleteAuthor");
         labelService.deleteLabel(id);
+
+        log.info("Label with ID: " + id + " deleted successfully.");
+
         return "redirect:/labels";
 
     }
