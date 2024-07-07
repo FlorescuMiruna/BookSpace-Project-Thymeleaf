@@ -2,6 +2,9 @@ package com.example.bookspace.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +23,15 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Title is required")
     private String title;
+
+    @NotBlank(message = "Genre required")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Only letters are allowed")
     private String genre;
+
+    @Digits(integer = 4, fraction = 0, message = "Please enter a valid year")
     private Integer year;
 
 //    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)

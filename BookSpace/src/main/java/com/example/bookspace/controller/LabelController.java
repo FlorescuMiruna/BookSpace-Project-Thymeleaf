@@ -54,14 +54,14 @@ public class LabelController {
     }
     @PostMapping("/save")
     public String saveLabel(@Valid @ModelAttribute("label") Label label, BindingResult bindingResult) {
-        labelService.saveLabel(label);
 
-        log.info("Successfully saved label with ID: " + label.getId());
 
         if(bindingResult.hasErrors()){
-            return "redirect:/add-label-form";
+            return "dd-label-form";
         }
 
+        labelService.saveLabel(label);
+        log.info("Successfully saved label with ID: " + label.getId());
         return "redirect:/labels";
     }
 

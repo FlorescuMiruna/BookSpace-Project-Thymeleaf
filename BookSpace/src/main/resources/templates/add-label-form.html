@@ -22,6 +22,7 @@
         <form action="#" th:action="@{/labels/save}" th:object="${label}" method="POST">
             <div class="form-group">
                 <input type="text" th:field="*{text}" placeholder="Title" class="form-control mb-4">
+<!--                <small class="text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></small>-->
             </div>
             <div class="form-group">
                 <select th:field="*{colour}" class="form-control mb-4">

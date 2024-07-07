@@ -92,11 +92,10 @@ public class BookController {
 
     @PostMapping("/save")
     public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult) {
-        bookService.saveBook(book);
-
         if(bindingResult.hasErrors()){
-            return "redirect:/add-book-form";
+            return "add-book-form";
         }
+        bookService.saveBook(book);
         log.info("Successfully saved book with ID: " + book.getId());
 
         return "redirect:/books";
