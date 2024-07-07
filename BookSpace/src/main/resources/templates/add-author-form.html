@@ -2,46 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Add a new Author</title>
+  <title>Authors form</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+  <style>
+    .full-height {
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h2 class="my-4 text-center">Add a new Author</h2>
+<div class="container full-height d-flex align-items-center justify-content-center">
+  <div class="card p-4" style="max-width: 600px; width: 100%;">
+    <hr>
+    <h2 class="text-center">Add a new Author</h2>
 
-  <form action="#" th:action="@{/authors/save}" th:object="${author}" method="POST" class="mb-4" th:validate="true">
+    <form action="#" th:action="@{/authors/save}" th:object="${author}" method="POST">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name"
+               class="form-control mb-4">
+        <small class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last name"
+               class="form-control mb-4">
+        <small class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+      </div>
+      <div class="form-group">
+        <label for="birthYear">Birth Year</label>
+        <input type="number" id="birthYear" th:field="*{birthYear}" placeholder="Birth Year"
+               class="form-control mb-4">
+        <small class="text-danger" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}"></small>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" id="description" th:field="*{authorDetails.description}" placeholder="Description"
+               class="form-control mb-4">
+        <small class="text-danger" th:if="${#fields.hasErrors('authorDetails.description')}" th:errors="*{authorDetails.description}"></small>
+      </div>
+      <div class="text-center mb-4">
+        <button type="submit" class="btn btn-info">Save Author</button>
+      </div>
+      <div class="text-center">
+        <a th:href="@{/authors}" class="btn btn-link"> Back to Authors List</a>
+      </div>
+    </form>
 
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" id="firstName" th:field="*{firstName}" class="form-control"
-             placeholder="Enter first name">
-      <small class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name
-        error message</small>
-    </div>
+    <hr>
 
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" id="lastName" th:field="*{lastName}" class="form-control"
-             placeholder="Enter last name">
-    </div>
-
-    <div class="form-group">
-      <label for="birthYear">Birth Year</label>
-      <input type="number" id="birthYear" th:field="*{birthYear}" class="form-control"
-             placeholder="Enter birth year">
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" id="description" th:field="*{authorDetails.description}" class="form-control"
-             placeholder="Enter description">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Author</button>
-    <a href="/authors" class="btn btn-secondary">Back to Authors List</a>
-  </form>
+  </div>
 </div>
 </body>
 </html>
