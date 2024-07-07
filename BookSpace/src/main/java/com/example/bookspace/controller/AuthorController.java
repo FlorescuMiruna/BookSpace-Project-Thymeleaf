@@ -70,16 +70,33 @@ public class AuthorController {
         return "update-author-form";
     }
 
+//    @PostMapping("/save")
+//    public String saveAuthor(@Valid @ModelAttribute("author") Author author, @ModelAttribute AuthorDetails authorDetails,BindingResult bindingResult) {
+//
+//        System.out.println("*** saveAuthor");
+//        if (bindingResult.hasErrors()) {
+//            System.out.println("** eroarea");
+//            // Afiseaza erorile in consola pentru debugging
+//            bindingResult.getAllErrors().forEach(error -> {
+//                System.out.println(error.getDefaultMessage());
+//            });
+//
+//            // Redirecteaza inapoi la formularul de adaugare a autorului
+//            return "add-author-form";
+//        }
+//        authorService.saveAuthor(author);
+//
+//        log.info("Successfully saved author with ID: " + author.getId());
+//        return "redirect:/authors";
+//    }
+
     @PostMapping("/save")
-    public String saveAuthor(@Valid @ModelAttribute("author") Author author, @ModelAttribute AuthorDetails authorDetails,BindingResult bindingResult) {
-        authorService.saveAuthor(author);
-
-        log.info("Successfully saved author with ID: " + author.getId());
-
-        if(bindingResult.hasErrors()){
-            return "redirect:/add-author-form";
+    public String saveAuthor(@Valid @ModelAttribute("author") Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add-author-form";
         }
-
+        authorService.saveAuthor(author);
+        log.info("Successfully saved author with ID: " + author.getId());
         return "redirect:/authors";
     }
 

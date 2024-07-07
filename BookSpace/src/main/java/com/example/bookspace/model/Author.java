@@ -1,6 +1,8 @@
 package com.example.bookspace.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.List;
@@ -14,6 +16,9 @@ public class Author {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "First name is required")
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Only letters are allowed")
     private String firstName;
     private String lastName;
 
