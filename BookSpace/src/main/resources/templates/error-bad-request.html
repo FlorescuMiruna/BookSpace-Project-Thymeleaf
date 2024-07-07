@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Error - Bad Request</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h1 class="panel-title">Error - Bad Request</h1>
+        </div>
+        <div class="panel-body">
+          <p>There was a problem with your request.</p>
+          <ul>
+            <li th:each="error : ${exception.bindingResult.globalErrors}">
+              <span th:text="${error.defaultMessage}"></span>
+            </li>
+            <li th:each="fieldError : ${exception.bindingResult.fieldErrors}">
+              <span th:text="${fieldError.field}"></span>: <span th:text="${fieldError.defaultMessage}"></span>
+            </li>
+          </ul>
+          <a href="/authors" class="btn btn-primary">Go Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
