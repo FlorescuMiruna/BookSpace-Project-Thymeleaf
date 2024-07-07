@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/authors")
@@ -98,6 +99,31 @@ public class AuthorController {
         modelAndView.getModel().put("exception",exception);
         modelAndView.setViewName("notFoundException");
         return modelAndView;
+    }
+
+    @GetMapping("/sortAuthors")
+    public String sortAuthors(Model model, @RequestParam(name = "sort", required = false) String sortCriteria) {
+        System.out.println(" ** sortAuthors");
+        List<Author> authorsList = authorService.getAllAuthors();
+
+        if (sortCriteria != null) {
+            if (sortCriteria.equals("alphabetic")) {
+                authorsList = authorsList.stream()
+                        .sorted((a1, a2) -> (a1.getFirstName() + a1.getLastName())
+                                .compareTo(a2.getFirstName() + a2.getLastName()))
+                        .collect(Collectors.toList());
+            } else if (sortCriteria.equals("birth-year")) {
+                authorsList = authorsList.stream()
+                        .sorted((a1, a2) -> Integer.compare(a1.getBirthYear(), a2.getBirthYear()))
+                        .collect(Collectors.toList());
+            }
+        }
+
+        model.addAttribute("authorslist", authorsList);
+        for(Author author : authorsList){
+            System.out.println(author);
+        }
+        return "authors";
     }
 
 }

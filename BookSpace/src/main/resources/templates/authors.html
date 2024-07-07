@@ -29,6 +29,8 @@
     Authors List
   </h5>
 
+
+
   <table style="width:80%" border="1"
          class = "table table-striped table-responsive-md">
     <thead>
@@ -56,6 +58,26 @@
     </tbody>
   </table>
   <a th:href="@{/authors/add-author-form}" class="btn btn-info btn-sm mb-3" >Add Author</a>
+
+  <div class="container full-height d-flex align-items-center justify-content-center">
+    <div class="card p-4" style="max-width: 600px; width: 100%;">
+      <hr>
+      <p class="text-center">Choose sorting criteria</p>
+      <form th:action="@{/authors/sortAuthors}" method="get">
+        <div class="form-group">
+<!--          <label for="sort-criteria">Choose sorting criteria:</label>-->
+          <select id="sort-criteria" name="sort" class="form-control mb-4">
+            <option value="alphabetic">Alphabetical</option>
+            <option value="birth-year">By birth year</option>
+          </select>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Sort</button>
+        </div>
+      </form>
+      <hr>
+    </div>
+  </div>
 </div>
 </body>
 </html>
