@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/books")
@@ -172,4 +174,40 @@ public class BookController {
         return "redirect:/books/page/" + bookId;
     }
 
+    @GetMapping("/sortBooks")
+    public String sortBooks(Model model, @RequestParam(name = "sort", required = false) String sortCriteria) {
+        List<Book> booksList = bookService.getAllBooks();
+
+        if (sortCriteria != null) {
+            switch (sortCriteria) {
+                case "title":
+                    booksList = booksList.stream()
+                            .sorted(Comparator.comparing(Book::getTitle))
+                            .collect(Collectors.toList());
+                    break;
+                case "genre":
+                    booksList = booksList.stream()
+                            .sorted(Comparator.comparing(Book::getGenre))
+                            .collect(Collectors.toList());
+                    break;
+                case "year":
+                    booksList = booksList.stream()
+                            .sorted(Comparator.comparingInt(Book::getYear))
+                            .collect(Collectors.toList());
+                    break;
+                case "authorName":
+                    booksList = booksList.stream()
+                            .sorted(Comparator.comparing(b -> b.getAuthor().getFirstName()))
+                            .collect(Collectors.toList());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        model.addAttribute("booksList", booksList);
+        return "books";
+    }
 }
+
+

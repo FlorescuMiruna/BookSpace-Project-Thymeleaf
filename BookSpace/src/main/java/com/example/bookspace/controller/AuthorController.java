@@ -123,6 +123,8 @@ public class AuthorController {
         for(Author author : authorsList){
             System.out.println(author);
         }
+
+        log.info("Successfully sorted the authors.");
         return "authors";
     }
 
