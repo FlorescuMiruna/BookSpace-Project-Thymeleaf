@@ -1,5 +1,6 @@
 package com.example.bookspace.service;
 
+import com.example.bookspace.exception.ResourceNotFoundException;
 import com.example.bookspace.model.Author;
 import com.example.bookspace.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,22 @@ public class AuthorService
         return authorRepository.findAll();
     }
 
-     public Author getAuthorById(Long id) {
+//     public Author getAuthorById(Long id) {
+//        Optional<Author> optional = authorRepository.findById(id);
+//        Author author = null;
+//        if (optional.isPresent()){
+//            author = optional.get();
+//        }
+//
+//        else
+//            throw new RuntimeException(
+//                    "Author not found for id : " + id);
+//        return author;
+//    }
+
+    public Author getAuthorById(Long id) {
         Optional<Author> optional = authorRepository.findById(id);
-        Author author = null;
-        if (optional.isPresent())
-            author = optional.get();
-        else
-            throw new RuntimeException(
-                    "Author not found for id : " + id);
-        return author;
+        return optional.orElseThrow(() -> new ResourceNotFoundException("Author not found for id: " + id));
     }
 
     public void saveAuthor(Author author) {

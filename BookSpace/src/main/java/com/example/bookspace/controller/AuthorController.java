@@ -50,6 +50,7 @@ public class AuthorController {
         return "author-info.html";
     }
 
+
     @GetMapping("/add-author-form")
     public String addAuthorForm(Model model) {
         Author author = new Author();
@@ -109,14 +110,6 @@ public class AuthorController {
         return "redirect:/authors";
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ModelAndView handlerNotFoundException(Exception exception){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.getModel().put("exception",exception);
-        modelAndView.setViewName("notFoundException");
-        return modelAndView;
-    }
 
     @GetMapping("/sortAuthors")
     public String sortAuthors(Model model, @RequestParam(name = "sort", required = false) String sortCriteria) {
@@ -144,5 +137,14 @@ public class AuthorController {
         log.info("Successfully sorted the authors.");
         return "authors";
     }
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ModelAndView handlerNotFoundException(Exception exception){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModel().put("exception",exception);
+        modelAndView.setViewName("notFoundException");
+        return modelAndView;
+    }
+
 
 }
