@@ -45,18 +45,22 @@ public class BookController {
         return "books";
     }
 
-//    @GetMapping("/page/{id}")
-//    public String viewBookPage(@PathVariable(value = "id") long id, Model model) {
-//        Book book = bookService.getBookById(id);
-//
-//        model.addAttribute("book", book);
-//        List<Author> authorsAll = authorService.getAllAuthors();
-//        model.addAttribute("authorsAll", authorsAll );
-//
-//        List<Review> reviewsAll = reviewService.getAllReviewsByBookId(id);
-//        model.addAttribute("reviewsAll", reviewsAll);
-//        return "book-page";
-//    }
+    @GetMapping("/page/{id}")
+    public String getBookInfoPage(@PathVariable(value = "id") long id, Model model) {
+        Book book = bookService.getBookById(id);
+        List<Label> allLabels = labelService.getAllLabels();
+
+        model.addAttribute("book", book);
+        model.addAttribute("labels", allLabels);
+
+        LabelBookDTO labelBookDTO = new LabelBookDTO();
+        labelBookDTO.setBookId(book.getId());
+        model.addAttribute("labelBookDTO", labelBookDTO);
+
+        log.info("Successfully loaded the Book Info Page");
+
+        return "book-info.html";
+    }
 
     @GetMapping("/add-book-form")
     public String addBookForm(Model model) {
@@ -91,50 +95,30 @@ public class BookController {
         if(bindingResult.hasErrors()){
             return "redirect:/add-book-form";
         }
+        log.info("Successfully saved book with ID: " + book.getId());
 
         return "redirect:/books";
     }
 
-    @PostMapping("/page/saveReview")
-    public String saveReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult) {
-
-        reviewService.saveReview(review);
-
-
-        return "redirect:/book/page";
-    }
+//    @PostMapping("/page/saveReview")
+//    public String saveReview(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult) {
+//        reviewService.saveReview(review);
+//
+//        return "redirect:/book/page";
+//    }
 
     @GetMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable(value = "id") long id) {
-        System.out.println("deleteBook");
+
         bookService.deleteBook(id);
+
+        log.info("Book with ID: " + id + " deleted successfully.");
+
         return "redirect:/books";
 
     }
 
-//    @GetMapping("/page/{id}")
-//    public String getBookPage(@PathVariable(value = "id") long id, Model model) {
-//        Book book = bookService.getBookById(id);
-//        List<Label> allLabels = labelService.getAllLabels();
-//        model.addAttribute("book", book);
-//        model.addAttribute("labels", allLabels);
-//        return "book-info.html";
-//    }
 
-    @GetMapping("/page/{id}")
-    public String getBookPage(@PathVariable(value = "id") long id, Model model) {
-        Book book = bookService.getBookById(id);
-        List<Label> allLabels = labelService.getAllLabels();
-
-        model.addAttribute("book", book);
-        model.addAttribute("labels", allLabels);
-
-        LabelBookDTO labelBookDTO = new LabelBookDTO();
-        labelBookDTO.setBookId(book.getId());
-        model.addAttribute("labelBookDTO", labelBookDTO);
-
-        return "book-info.html";
-    }
     @PutMapping("/page/{id}")
     public String addLabelOnBook(@PathVariable(value = "id") long id, Model model) {
         Book book = bookService.getBookById(id);
@@ -182,6 +166,7 @@ public class BookController {
         if (book != null && label != null) {
             book.getLabels().add(label);
             bookService.saveBook(book);
+            log.info("Label added to book and saved successfully");
         }
 
         return "redirect:/books/page/" + bookId;

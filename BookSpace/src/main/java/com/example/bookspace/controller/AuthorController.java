@@ -31,8 +31,20 @@ public class AuthorController {
     @GetMapping("")
     public String viewAllAuthorsPage(Model model) {
         model.addAttribute("authorslist", authorService.getAllAuthors());
+
         log.info("Successfully loaded Authors page");
+
         return "authors";
+    }
+
+    @GetMapping("/page/{id}")
+    public String getAuthorInfoPage(@PathVariable(value = "id") long id, Model model) {
+        Author author = authorService.getAuthorById(id);
+        model.addAttribute("author", author);
+
+        log.info("Successfully loaded the Author Info Page");
+
+        return "author-info.html";
     }
 
     @GetMapping("/add-author-form")
@@ -55,16 +67,6 @@ public class AuthorController {
         return "update-author-form";
     }
 
-    @GetMapping("/page/{id}")
-    public String getAuthorInfo(@PathVariable(value = "id") long id, Model model) {
-        Author author = authorService.getAuthorById(id);
-        model.addAttribute("author", author);
-
-        log.info("Successfully loaded the Author Info Page");
-
-        return "author-info.html";
-    }
-
     @PostMapping("/save")
     public String saveAuthor(@Valid @ModelAttribute("author") Author author, @ModelAttribute AuthorDetails authorDetails,BindingResult bindingResult) {
         authorService.saveAuthor(author);
@@ -83,7 +85,7 @@ public class AuthorController {
         authorService.deleteAuthor(id);
 
         log.info("Author with ID: " + id + " deleted successfully.");
-        
+
         return "redirect:/authors";
     }
 
