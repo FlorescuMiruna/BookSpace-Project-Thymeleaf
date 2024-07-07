@@ -35,8 +35,8 @@ public class AuthorService
         return author;
     }
 
-    public void saveAuthor(Author employee) {
-        authorRepository.save(employee);
+    public void saveAuthor(Author author) {
+        authorRepository.save(author);
     }
 
      public void deleteAuthor(long id) {
