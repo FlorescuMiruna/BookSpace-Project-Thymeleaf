@@ -4,13 +4,8 @@ import com.example.bookspace.exception.ResourceNotFoundException;
 import com.example.bookspace.model.Author;
 import com.example.bookspace.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,26 +23,14 @@ public class AuthorService
         return authorRepository.findAll();
     }
 
-//     public Author getAuthorById(Long id) {
-//        Optional<Author> optional = authorRepository.findById(id);
-//        Author author = null;
-//        if (optional.isPresent()){
-//            author = optional.get();
-//        }
-//
-//        else
-//            throw new RuntimeException(
-//                    "Author not found for id : " + id);
-//        return author;
-//    }
-
     public Author getAuthorById(Long id) {
         Optional<Author> optional = authorRepository.findById(id);
         return optional.orElseThrow(() -> new ResourceNotFoundException("Author not found for id: " + id));
     }
 
-    public void saveAuthor(Author author) {
+    public Author saveAuthor(Author author) {
         authorRepository.save(author);
+        return author;
     }
 
      public void deleteAuthor(long id) {
